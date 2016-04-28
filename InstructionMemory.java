@@ -1,7 +1,9 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.*;
 
 /**
@@ -28,21 +30,38 @@ public class InstructionMemory {
 		}
 	}
 	public void dump() {
+		try {
+		      PrintStream dump = new PrintStream(new File(
+		          "InstructionDump.txt"));
+		      PrintStream old = System.out;
+		      System.setOut(dump);
+		      
 		//Begin page 1 of output
-		System.out.println("Memory Dump--Instruction Memory   B = 000 T = 000 P = 000");
+		dump.println("Memory Dump--Instruction Memory   B = 000 T = 000 P = 000");
 		
 		for (i = 0; i < 224; i++ ) {
 			dumpSubCycle();
 		}
 		//Begin page 2 of output
-		System.out.println("Memory Dump--Instruction Memory     Page 2");
+		dump.println("Memory Dump--Instruction Memory     Page 2");
 				
 		for (i = 224; i < 1024; i++ ) {
 			dumpSubCycle();
 		}
 		
 		//Notify the user there is nothing further
-		System.out.println("End Memory Dump--Instruction Memory");
+		dump.println("End Memory Dump--Instruction Memory");
+		
+		dump.close();
+		System.out.flush();
+	    System.setOut(old);
+
+	    } catch (FileNotFoundException ex) {
+	      ex.printStackTrace();
+	    }
+		finally {
+			System.out.println("Instructions have been written to a file.");
+		}
 	}
 	
 		public void dumpSubCycle() {
@@ -60,9 +79,7 @@ public class InstructionMemory {
 			//output row labels and start printing data memory contents
 			System.out.print(newLine);
 			System.out.print(" ");
-			//System.out.print(Integer.toHexString(temp).toUpperCase());
-			//System.out.printf("%05d", Integer.toHexString(temp).toUpperCase());
-			//System.out.print(" ");
+		
 			
 			//complete the row of contents
 			for (j = 0; j < 16; j++) {
