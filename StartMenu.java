@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Scanner;
 
 /**
  * @author kristin-k-opheim
@@ -10,20 +11,46 @@ public class StartMenu {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		//Welcome, Choose Option
-		System.out.println("SHAZAM 2016\n\nChoose an Option by Number:");
-		System.out.println("\n1 Clear \n2 Dump\n3 Load\n");
 		
+		//Set-up
 		DataMemory shazamData = new DataMemory();
 		shazamData.clear();
-		shazamData.dump();
-		
 		InstructionMemory shazamInstructions = new InstructionMemory();
 		shazamInstructions.clear();
 		
-		shazamInstructions.load();
-		shazamInstructions.dump();
-
+		//Welcome, Choose Option
+		System.out.println("SHAZAM 2016\n\nChoose an Option by Number:");
+		System.out.println("\n1 Clear \n2 Dump\n3 Load\n0 Quit");
+		Scanner scnr = new Scanner(System.in);
+		int input = scnr.nextInt();
+	
+		while (input != 0){
+		switch(input){
+		case 1: 
+			shazamData.clear();
+			shazamInstructions.clear();
+			System.out.println("Data and Instructions have been cleared.\n");
+			input = scnr.nextInt();
+			break;
+		case 2: 
+			shazamData.dump();
+			shazamInstructions.dump();
+			System.out.println("Please check project folder.\n");
+			input = scnr.nextInt();
+			break;
+		case 3: 
+			shazamData.load();
+			shazamInstructions.load();
+			System.out.println("Your Input File has been loaded.\n");
+			input = scnr.nextInt();
+			break;
+		default: 
+			System.out.println("Invalid Command.\n");
+			input = scnr.nextInt();
+			break;
+		}
+		}
+		System.out.println("Done.");
 	}
 
 }
