@@ -23,6 +23,19 @@ public class InstructionMemory {
 	public InstructionMemory(){
 	}
 	
+	public int[] getInstructions() {
+		return instructions;
+	}
+	
+	public int getInstruction(int i) {
+		int imem = instructions[i];
+		return imem;
+	}
+
+	public void setInstructions(int[] instructions) {
+		this.instructions = instructions;
+	}
+
 	public void clear(){
 		//clear the contents
 		for(i = 0; i < max; i++) {
@@ -89,8 +102,7 @@ public class InstructionMemory {
 				formatted = ("0" + formatted);
 			}
 			System.out.print(formatted);
-			//System.out.printf("%05x", Integer.toHexString(temp).toUpperCase());
-			System.out.printf("  ");
+			System.out.print("  ");
 			i++;
 			}
 			System.out.println("");
@@ -99,7 +111,7 @@ public class InstructionMemory {
 		
 		public void load() {
 			//take a file in to read
-			String fileName = "Input.txt";
+			String fileName = "Interpreter.in.txt";
 			String line = null;
 			int x = 0;
 			
